@@ -1,0 +1,223 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">FightScores</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user %}
+              <li class="user_email"><a href="#">{{user.email}}</a></li>
+              <li><a href="/logout">Logout</a><li>
+            {% else %}
+              <li><a href="/login">Login/Signup</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class = "row">
+        <div class="starter-template">
+          <h3>Welcome</h3>
+          <p class="lead">Use this app to judge fights you are watching! </p> <br>
+    <!--       <strong> Instructions: </strong> <br>
+          <p>
+            1) Click on the a fighter's box for each round you think they won. <br>
+            2) Click on the "KD/PD" button if that fighter had been knocked down or recieved a point deduction. <br>
+            3) Click on "Tally Scores" button to get the total score count. <br>
+            4) Click "Submit Scores" to share your scores with other users. <br>
+            5) Signup to keep a history of your scores!
+          </p> <br>
+   -->
+
+          <p>Group Score:</p>
+          <div class="lederman-card">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Fighters</th>
+                  <th>Round 1</th>
+                  <th>Round 2</th>
+                  <th>Round 3</th>
+                  <th>Round 4</th>
+                  <th>Round 5</th>
+                  <th>Round 6</th>
+                  <th>Round 7</th>
+                  <th>Round 8</th>
+                  <th>Round 9</th>
+                  <th>Round 10</th>
+                  <th>Round 11</th>
+                  <th>Round 12</th>
+                  <th>Total Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="gf1">
+                  <td id="gf1_name">Saul "Canelo" Alvarez</td>
+                  <td class='g1'>0</td>
+                  <td class="g2">0</td>
+                  <td class="g3">0</td>
+                  <td class="g4">0</td>
+                  <td class="g5">0</td>
+                  <td class="g6">0</td>
+                  <td class="g7">0</td>
+                  <td class="g8">0</td>
+                  <td class="g9">0</td>
+                  <td class="g10">0</td>
+                  <td class="g11">0</td>
+                  <td class="g12">0</td>
+                  <td class="group-totalscore">0</td>
+                </tr>
+                <tr class="gf2">
+                  <td id="gf2_name">Alfredo "El Perro" Angulo</td>
+                  <td class="g1">0</td>
+                  <td class="g2">0</td>
+                  <td class="g3">0</td>
+                  <td class="g4">0</td>
+                  <td class="g5">0</td>
+                  <td class="g6">0</td>
+                  <td class="g7">0</td>
+                  <td class="g8">0</td>
+                  <td class="g9">0</td>
+                  <td class="g10">0</td>
+                  <td class="g11">0</td>
+                  <td class="g12">0</td>
+                  <td class="group-totalscore">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- lederman-card -->
+
+          <br>
+
+          <p>Score your fight here:</p>
+
+          <div class="lederman-card">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Fighters</th>
+                  <th>Round 1</th>
+                  <th>Round 2</th>
+                  <th>Round 3</th>
+                  <th>Round 4</th>
+                  <th>Round 5</th>
+                  <th>Round 6</th>
+                  <th>Round 7</th>
+                  <th>Round 8</th>
+                  <th>Round 9</th>
+                  <th>Round 10</th>
+                  <th>Round 11</th>
+                  <th>Round 12</th>
+                  <th>Total Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="f1">
+                  <td rowspan="2" id="f1_name">Saul "Canelo" Alvarez</td>
+                  <td class="r1">0</td>
+                  <td class="r2">0</td>
+                  <td class="r3">0</td>
+                  <td class="r4">0</td>
+                  <td class="r5">0</td>
+                  <td class="r6">0</td>
+                  <td class="r7">0</td>
+                  <td class="r8">0</td>
+                  <td class="r9">0</td>
+                  <td class="r10">0</td>
+                  <td class="r11">0</td>
+                  <td class="r12">0</td>
+                  <td class="totalscore" rowspan="2">0</td>
+                </tr>
+                <tr class="kd-buttons">
+                  <td><button type="button" class="btn btn-default btn-xs kd1-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd2-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd3-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd4-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd5-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd6-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd7-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd8-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd9-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd10-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd11-button">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd12-button">KD/PD</button></td>
+                </tr>
+                <tr class="f2">
+                  <td rowspan="2" id="f2_name">Alfredo "El Perro" Angulo</td>
+                  <td class="r1">0</td>
+                  <td class="r2">0</td>
+                  <td class="r3">0</td>
+                  <td class="r4">0</td>
+                  <td class="r5">0</td>
+                  <td class="r6">0</td>
+                  <td class="r7">0</td>
+                  <td class="r8">0</td>
+                  <td class="r9">0</td>
+                  <td class="r10">0</td>
+                  <td class="r11">0</td>
+                  <td class="r12">0</td>
+                  <td class="totalscore" rowspan="2">0</td>
+                </tr>
+                 <tr class="kd-buttons">
+                  <td><button type="button" class="btn btn-default btn-xs kd-button1">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button2">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button3">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button4">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button5">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button6">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button7">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button8">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button9">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button10">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button11">KD/PD</button></td>
+                  <td><button type="button" class="btn btn-default btn-xs kd-button12">KD/PD</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- lederman-card -->
+
+          <button type="button" class="btn btn-default tally">Tally Scores</button>
+
+          <button type="button" class="btn btn-default submit">Submit Scores</button>
+        </div><!-- starter template -->
+      </div><!-- row -->
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="fightList">
+            <h3>Fights to Judge</h3>
+              <ul>
+                {% for x in headline %}
+                <li class="fightselector"><a>{{x}}</a></li>
+                {% endfor %}
+              </ul>
+          </div>
+        </div>
+      </div>
+
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src='/javascripts/scripts.js'></script>
+  </body>
+  {% endblock %}
