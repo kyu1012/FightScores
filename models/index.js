@@ -10,17 +10,19 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   'email': { type: String, required: true, unique: true },
   'password': { type: String, required: true, unique: true },
+  'score': [fightSchema],
   'salt': String
 });
 
 var fightSchema = new Schema({
   f1: String,
   f2: String,
+  f1_roundScores: Array,
+  f2_roundScores: Array,
   f1_score: Number,
   f2_score: Number,
   user_email: String
 });
-
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
@@ -41,6 +43,7 @@ userSchema.methods.validPassword = function(password) {
 
 var Fight = mongoose.model("Fight", fightSchema);
 var User = mongoose.model("User", userSchema);
+// var Scores = mongoose.model("Scores", fightScore);
 
 module.exports = {"Fight": Fight, "User": User};
 

@@ -1,6 +1,7 @@
 /** Module dependencies. */
 var flash = require('connect-flash');
 var express = require('express');
+
 var cheerio = require('cheerio');
 var async = require('async');
 var request = require('request');
@@ -19,6 +20,10 @@ passportExport(passport);
 
 var app = express();
 app.engine('html', swig.renderFile)
+
+//socket.io
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -39,7 +44,6 @@ app.use(passport.session()); //persistent login sessions
 app.use(flash());
 app.use(app.router); //use connect-flash for flash messages
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // development only
 if ('development' == app.get('env')) {
@@ -73,6 +77,15 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login')
 }
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+//socket.io shit for Group Scores
+io.sockets.on('connection', function(socket){
+  socket.on('send scores', function(data){
+    console.log(data);
+    io.sockets.emit('show scores', data);
+  })
+})

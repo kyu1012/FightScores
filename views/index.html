@@ -49,7 +49,7 @@
               <thead>
                 <tr>
                   <th>Fighters</th>
-                  <th>Round 1</th>
+<!--                   <th>Round 1</th>
                   <th>Round 2</th>
                   <th>Round 3</th>
                   <th>Round 4</th>
@@ -60,14 +60,15 @@
                   <th>Round 9</th>
                   <th>Round 10</th>
                   <th>Round 11</th>
-                  <th>Round 12</th>
-                  <th>Total Score</th>
+                  <th>Round 12</th> -->
+                  <th>Average Group Score</th>
+                  <th>Number of Users Submitted</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="gf1">
                   <td id="gf1_name">Saul "Canelo" Alvarez</td>
-                  <td class='g1'>0</td>
+<!--                   <td class='g1'>0</td>
                   <td class="g2">0</td>
                   <td class="g3">0</td>
                   <td class="g4">0</td>
@@ -78,12 +79,13 @@
                   <td class="g9">0</td>
                   <td class="g10">0</td>
                   <td class="g11">0</td>
-                  <td class="g12">0</td>
-                  <td class="group-totalscore">0</td>
+                  <td class="g12">0</td> -->
+                  <td class="group-totalscore" id="gf1_score">0</td>
+                  <td rowspan='2 '>0</td>
                 </tr>
                 <tr class="gf2">
                   <td id="gf2_name">Alfredo "El Perro" Angulo</td>
-                  <td class="g1">0</td>
+<!--                   <td class="g1">0</td>
                   <td class="g2">0</td>
                   <td class="g3">0</td>
                   <td class="g4">0</td>
@@ -94,8 +96,8 @@
                   <td class="g9">0</td>
                   <td class="g10">0</td>
                   <td class="g11">0</td>
-                  <td class="g12">0</td>
-                  <td class="group-totalscore">0</td>
+                  <td class="g12">0</td> -->
+                  <td class="group-totalscore" id="gf2_score">0</td>
                 </tr>
               </tbody>
             </table>
@@ -127,19 +129,19 @@
               </thead>
               <tbody>
                 <tr class="f1">
-                  <td rowspan="2" id="f1_name">Saul "Canelo" Alvarez</td>
-                  <td class="r1">0</td>
-                  <td class="r2">0</td>
-                  <td class="r3">0</td>
-                  <td class="r4">0</td>
-                  <td class="r5">0</td>
-                  <td class="r6">0</td>
-                  <td class="r7">0</td>
-                  <td class="r8">0</td>
-                  <td class="r9">0</td>
-                  <td class="r10">0</td>
-                  <td class="r11">0</td>
-                  <td class="r12">0</td>
+                  <td rowspan="2" id="f1_name">Fighter 1</td>
+                  <td class="r1" id="f1r1">0</td>
+                  <td class="r2" id="f1r2">0</td>
+                  <td class="r3" id="f1r3">0</td>
+                  <td class="r4" id="f1r4">0</td>
+                  <td class="r5" id="f1r5">0</td>
+                  <td class="r6" id="f1r6">0</td>
+                  <td class="r7" id="f1r7">0</td>
+                  <td class="r8" id="f1r8">0</td>
+                  <td class="r9" id="f1r9">0</td>
+                  <td class="r10" id="f1r10">0</td>
+                  <td class="r11" id="f1r11">0</td>
+                  <td class="r12" id="f1r12">0</td>
                   <td class="totalscore" rowspan="2">0</td>
                 </tr>
                 <tr class="kd-buttons">
@@ -157,19 +159,19 @@
                   <td><button type="button" class="btn btn-default btn-xs kd12-button">KD/PD</button></td>
                 </tr>
                 <tr class="f2">
-                  <td rowspan="2" id="f2_name">Alfredo "El Perro" Angulo</td>
-                  <td class="r1">0</td>
-                  <td class="r2">0</td>
-                  <td class="r3">0</td>
-                  <td class="r4">0</td>
-                  <td class="r5">0</td>
-                  <td class="r6">0</td>
-                  <td class="r7">0</td>
-                  <td class="r8">0</td>
-                  <td class="r9">0</td>
-                  <td class="r10">0</td>
-                  <td class="r11">0</td>
-                  <td class="r12">0</td>
+                  <td rowspan="2" id="f2_name">Fighter 2</td>
+                  <td class="r1" id="f2r1">0</td>
+                  <td class="r2" id="f2r2">0</td>
+                  <td class="r3" id="f2r3">0</td>
+                  <td class="r4" id="f2r4">0</td>
+                  <td class="r5" id="f2r5">0</td>
+                  <td class="r6" id="f2r6">0</td>
+                  <td class="r7" id="f2r7">0</td>
+                  <td class="r8" id="f2r8">0</td>
+                  <td class="r9" id="f2r9">0</td>
+                  <td class="r10" id="f2r10">0</td>
+                  <td class="r11" id="f2r11">0</td>
+                  <td class="r12" id="f2r12">0</td>
                   <td class="totalscore" rowspan="2">0</td>
                 </tr>
                  <tr class="kd-buttons">
@@ -192,7 +194,7 @@
 
           <button type="button" class="btn btn-default tally">Tally Scores</button>
 
-          <button type="button" class="btn btn-default submit">Submit Scores</button>
+          <button type="button" class="btn btn-default submit" id='submit_scores'>Submit Scores</button>
         </div><!-- starter template -->
       </div><!-- row -->
 
@@ -219,5 +221,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src='/javascripts/scripts.js'></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+
+      <script>
+        jQuery(function($){
+          var socket = io.connect();
+          console.log("hello james")
+          var $group_f1_score = $('#gf1_score');
+          var $group_f2_score = $('#gf2_score');
+
+          var $submit_scores = $('#submit_scores');
+
+          // submit scores to server
+          $submit_scores.click(function(e){
+          var $scored_fight = {
+            "f1": $('#f1_name').text(),
+            "f2": $('#f2_name').text(),
+            "f1_roundScores": [$('#f1r1').text(), $('#f1r2').text(), $('#f1r3').text(), $('#f1r4').text(), $('#f1r5').text(), $('#f1r6').text(), $('#f1r7').text(), $('#f1r8').text(), $('#f1r9').text(), $('#f1r10').text(), $('#f1r11').text(), $('#f1r12').text()],
+            "f2_roundScores": [$('#f1r1').text(), $('#f2r2').text(), $('#f2r3').text(), $('#f2r4').text(), $('#f2r5').text(), $('#f2r6').text(), $('#f2r7').text(), $('#f2r8').text(), $('#f2r9').text(), $('#f2r10').text(), $('#f2r11').text(), $('#f2r12').text()],
+            "f1_score": parseInt($('.f1 .totalscore').text()),
+            "f2_score": parseInt($('.f2 .totalscore').text())
+          }
+            // e.preventDefault();
+            socket.emit('send scores', $scored_fight)
+          })
+
+          // var score1 = 0;
+          // var score2 = 0;
+          //recieve group scores at right places
+          socket.on('show scores', function(data){
+            $group_f1_score.empty();
+            $group_f2_score.empty();
+
+            // score1 = (data.f1_score);
+            // score2 = (data.f2_score);
+
+            $group_f1_score.append(data.f1_score);
+            $group_f2_score.append(data.f2_score);
+          })
+        })
+      </script>
   </body>
   {% endblock %}
