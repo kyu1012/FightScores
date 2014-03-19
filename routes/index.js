@@ -2,7 +2,11 @@ var models = require('../models/index.js');
 var passport = require('passport');
 var crawl = require('../crawler.js');
 var flash = require('connect-flash');
-var io = require('socket.io');
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+ // socket = io.connect();
 /*
  * GET home page.
  */
@@ -64,20 +68,28 @@ exports.submit_scores = function(req, res){
     "user_email": scored_fight.user_email
   }, function(err, data){
     if (data.length === 0){
-      scored_fight.save();
-
+      scored_fight.save(function(err, user_fight){
+        if (err) {
+          return "error";
+        }
+        else {
+          models.UserScore.find({"f1": user_fight.f1, "f2": user_fight.f2}, function(err, allFightScores){
+            console.log("from index-routes " +allFightScores);
+            io.sockets.on('connection', function(socket) {
+              socket.emit('show scores', allFightScores)
+            })
+            res.send(200);
+          })
+        }
+      })
+      //put a callback on the user_scored_fight data, also emit that data with the average scores;
       res.json(scored_fight);
-      console.log("scored_fight from routes " + scored_fight);
     }
     else if (data[0].f1 === scored_fight.f1 && data[0].f2 === scored_fight.f2 && data[0].user_email === scored_fight.user_email) {
-      res.send(200);
+      res.json(200);
       console.log("data already judged.");
     }
   })
-
-  // models.Fight.find({"f1": scored_fight.f1, "f2": scored_fight.f2}, function(err, fight){
-  //   fight.length;
-  // });
 }
 
 //New User

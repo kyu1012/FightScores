@@ -7,11 +7,11 @@ jQuery(function($){
   var $group_f2_score = $('#gf2_score');
 
   socket.on('show scores', function(mongooseData){
+    console.log("mongooseData from scripts " + mongooseData)
 
     $group_f1_score.empty();
     $group_f2_score.empty();
 
-    console.log(mongooseData);
   //sum fighter scores for all user submissions
     var f1_sumScore = 0;
     var f2_sumScore = 0;
@@ -61,7 +61,6 @@ $('.tally').click(function(){
 })
 
 //SUBMIT FINAL SCORE on SUBMIT BUTTON
-var luis = 0;
 $('.submit').click(function(){
   var scored_fight = {
     "f1": $('#f1_name').text(),
@@ -73,13 +72,14 @@ $('.submit').click(function(){
     "user_email": $('.user_email').text()
   };
 
+  var luis = 0;
   luis++
   if (luis > 1){
     alert("Cannot submit more than once.");
   }
   else {
     $.post('/submit', scored_fight, function(data){
-      socket.emit('send scores', scored_fight);
+      // socket.emit('send scores', user_scored_fight);
     }, "json");
   }
 });

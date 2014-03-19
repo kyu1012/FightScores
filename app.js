@@ -24,7 +24,7 @@ app.engine('html', swig.renderFile)
 
 //socket.io
 var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+// var io = require('socket.io').listen(server);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -82,12 +82,3 @@ server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
-//socket.io shit for Group Scores
-io.sockets.on('connection', function(socket){
-  socket.on('send scores', function(data){
-    models.UserScore.find({"f1": data.f1, "f2": data.f2}, function(err, mongooseData){
-      io.sockets.emit('show scores', mongooseData);
-    })
-  })
-})
