@@ -13,6 +13,7 @@ var path = require('path');
 var passport = require('passport');
 var passportExport = require('./passport');
 var MongoStore = require('connect-mongo')(express);
+var models = require('./models/index');
 
 var crawl = require('./crawler.js');
 
@@ -85,7 +86,8 @@ server.listen(app.get('port'), function(){
 //socket.io shit for Group Scores
 io.sockets.on('connection', function(socket){
   socket.on('send scores', function(data){
-    console.log(data);
-    io.sockets.emit('show scores', data);
+    models.UserScore.find({"f1": data.f1, "f2": data.f2}, function(err, mongooseData){
+      io.sockets.emit('show scores', mongooseData);
+    })
   })
 })

@@ -7,14 +7,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-  'email': { type: String, required: true, unique: true },
-  'password': { type: String, required: true, unique: true },
-  'score': [fightSchema],
-  'salt': String
-});
 
-var fightSchema = new Schema({
+var userScoreSchema = new Schema({
   f1: String,
   f2: String,
   f1_roundScores: Array,
@@ -22,6 +16,21 @@ var fightSchema = new Schema({
   f1_score: Number,
   f2_score: Number,
   user_email: String
+});
+
+var userSchema = new Schema({
+  'email': { type: String, required: true, unique: true },
+  'password': { type: String, required: true, unique: true },
+  'score': [userScoreSchema],
+  'salt': String
+});
+
+//create a new schema for fights with fight_id and rename fightschema to user-submitted-fight-score
+var fightSchema = new Schema({
+  f1: String,
+  f2: String,
+  scores: [userScoreSchema],
+  id: Number
 });
 
 // generating a hash
@@ -42,8 +51,9 @@ userSchema.methods.validPassword = function(password) {
 };
 
 var Fight = mongoose.model("Fight", fightSchema);
+var UserScore = mongoose.model("UserScore", userScoreSchema);
 var User = mongoose.model("User", userSchema);
 // var Scores = mongoose.model("Scores", fightScore);
 
-module.exports = {"Fight": Fight, "User": User};
+module.exports = {"Fight": Fight, "UserScore": UserScore, "User": User};
 

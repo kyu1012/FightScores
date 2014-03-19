@@ -1,34 +1,35 @@
-// jQuery(function($){
-//   socket = io.connect();
-//   console.log("hello james")
-//   var $group_f1_score = $('#gf1_score');
-//   var $group_f2_score = $('#gf2_score');
+//SOCKET.IO
 
-//   var $submit_scores = $('#submit_scores');
+jQuery(function($){
+  socket = io.connect();
+  console.log("hello james")
+  var $group_f1_score = $('#gf1_score');
+  var $group_f2_score = $('#gf2_score');
 
-//   // submit scores to server
-//   $submit_scores.click(function(e){
-//     // e.preventDefault();
-//     socket.emit('send scores', {$submit_scores})
-//     // console.log($scored_fight);
-//   })
+  socket.on('show scores', function(mongooseData){
 
-//   var score1 = 0;
-//   var score2 = 0;
-//   //recieve group scores at right places
-//   socket.on('show scores', function(data){
-//     $group_f1_score.empty();
-//     $group_f2_score.empty();
+    $group_f1_score.empty();
+    $group_f2_score.empty();
 
-//     score1 = (data.f1_score)/data.counter;
-//     score2 = (data.f2_score)/data.counter;
+    console.log(mongooseData);
+  //sum fighter scores for all user submissions
+    var f1_sumScore = 0;
+    var f2_sumScore = 0;
+    for (var i = 0; i < mongooseData.length; i++){
+      f1_sumScore += mongooseData[i].f1_score;
+      f2_sumScore += mongooseData[i].f2_score;
+    }
+    //get the simple average
+    var f1_avgScore = f1_sumScore/mongooseData.length;
+    var f2_avgScore = f2_sumScore/mongooseData.length;
 
-//     $group_f1_score.append(score1);
-//     $group_f2_score.append(score2);
-//   })
-// })
+    $group_f1_score.append(f1_avgScore);
+    $group_f2_score.append(f2_avgScore);
+  })
+})
 
-//Sumbit scores for each round on click
+
+//SUBMIT ROUND SCORES on CLICK
 $('.f1').find("td[class^='r']").click(function(){
   $(this).text('10');
   var corrclass = $(this).attr('class');
@@ -42,7 +43,7 @@ $('.f2').find("td[class^='r']").click(function(){
   $('.f1 .'+corrclass).text("9");
 })
 
-// Tally Scores
+//TALLY SCORES
 $('.tally').click(function(){
 
   var sum = 0;
@@ -59,7 +60,7 @@ $('.tally').click(function(){
   $('.f2 .totalscore').text(sum2);
 })
 
-//Submit Score
+//SUBMIT FINAL SCORE on SUBMIT BUTTON
 var luis = 0;
 $('.submit').click(function(){
   var scored_fight = {
@@ -72,17 +73,18 @@ $('.submit').click(function(){
     "user_email": $('.user_email').text()
   };
 
-  // console.log(scored_fight);
   luis++
   if (luis > 1){
     alert("Cannot submit more than once.");
   }
   else {
-    $.post('/submit', scored_fight);
+    $.post('/submit', scored_fight, function(data){
+      socket.emit('send scores', scored_fight);
+    }, "json");
   }
 });
 
-//Fight Selector
+//SELECT BOXERS
 $('.fightselector').click(function(){
   var fighterNames = $(this).text().split("vs.");
 
@@ -92,6 +94,37 @@ $('.fightselector').click(function(){
   $('#gf2_name').text(fighterNames[1]);
 
   luis = 0;
+
+  //EMPTY the current scores
+  // $('#gf1_score').text(0);
+  // $('#f1r1').text(0);
+  // $('#f1r2').text(0);
+  // $('#f1r3').text(0);
+  // $('#f1r4').text(0);
+  // $('#f1r5').text(0);
+  // $('#f1r6').text(0);
+  // $('#f1r7').text(0);
+  // $('#f1r8').text(0);
+  // $('#f1r9').text(0);
+  // $('#f1r10').text(0);
+  // $('#f1r11').text(0);
+  // $('#f1r12').text(0);
+  // $("#f1_total").text(0);
+
+  // $('#gf2_score').text(0);
+  // $('#f2r1').text(0);
+  // $('#f2r2').text(0);
+  // $('#f2r3').text(0);
+  // $('#f2r4').text(0);
+  // $('#f2r5').text(0);
+  // $('#f2r6').text(0);
+  // $('#f2r7').text(0);
+  // $('#f2r8').text(0);
+  // $('#f2r9').text(0);
+  // $('#f2r10').text(0);
+  // $('#f2r11').text(0);
+  // $('#f2r12').text(0)
+  // $("#f2_total").text(0);
 })
 
 

@@ -11,11 +11,14 @@ var fightArray = [];
 // var fighterNames = [];
 crawl.getAndCrawlLink(crawl.baseUrl, function(fightList) {
   fightArray = fightList;
-  // fighterNames = fightArray.split("vs. ");
 });
 
+
+//Store fighter names in fightSchema, along with fightID
+
+
 exports.index = function(req, res){
-  models.Fight.find({
+  models.UserScore.find({
     "fighter1": req.body.gf1_name,
     "fighter2": req.body.gf2_name
   },
@@ -28,11 +31,22 @@ exports.index = function(req, res){
       "fighter2": req.body.gf2_name
     });
   });
+
+  // var fightID = 0;
+  for (var i = 0; i < fightArray.length; i++ ){
+    var f1name = fightArray[i].split("vs.")[0];
+    var f2name = fightArray[i].split("vs.")[1];
+    var fights = new models.Fight({
+      "f1": f1name,
+      "f2": f2name
+      // "id": fightID++
+    }).save();
+  }
 }
 
 exports.submit_scores = function(req, res){
 
-  var scored_fight = new models.Fight({
+  var scored_fight = new models.UserScore({
     "f1": req.body.f1,
     "f2": req.body.f2,
     "f1_roundScores": req.body.f1_roundScores,
@@ -42,22 +56,22 @@ exports.submit_scores = function(req, res){
     "user_email": req.body.user_email
   });
 
-
-  models.Fight.find({
+  models.UserScore.find({
     "f1": scored_fight.f1,
     "f2": scored_fight.f2,
     "f1_score": scored_fight.f1_score,
     "f2_score": scored_fight.f2_score,
     "user_email": scored_fight.user_email
-  }, function(err, fightCard){
-    console.log(fightCard)
-    if (fightCard.length === 0){
+  }, function(err, data){
+    if (data.length === 0){
       scored_fight.save();
-      // res.send("Scores submitted!");
+
+      res.json(scored_fight);
+      console.log("scored_fight from routes " + scored_fight);
     }
-    else if (fightCard[0].f1 === scored_fight.f1 && fightCard[0].f2 === scored_fight.f2 && fightCard[0].user_email === scored_fight.user_email) {
+    else if (data[0].f1 === scored_fight.f1 && data[0].f2 === scored_fight.f2 && data[0].user_email === scored_fight.user_email) {
       res.send(200);
-      console.log("Fightcard already judged.");
+      console.log("data already judged.");
     }
   })
 
